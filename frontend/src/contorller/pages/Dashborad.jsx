@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { setCookie, getCookie } from "./utils/cookies";
 import "./style.css";
 import UrlLoginPage from "./UrlLogin";
+import bu from './config.json'
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Dashboard = () => {
       return;
     }
 
-    Axios.get("http://localhost:3001/verifyToken", {
+    Axios.get(`${bu.backendUrl}/verifyToken`, {
       params: { token },
     })
       .then(() => {
@@ -77,7 +78,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const response = await Axios.get("http://localhost:3001/getChartData", {
+        const response = await Axios.get(`${bu.backendUrl}/getChartData`, {
           params: {
             gender: filters.gender,
             age: filters.age,
