@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const User = require('./models/User'); // Users model
 const Employee = require('./models/Employee'); // Employee model
 const db = require('./db/dbConnection'); // Database connection
@@ -52,30 +52,30 @@ app.post('/checkUser', async (req, res) => {
 });
 
 // Fetch dropdown items (Distinct Gender and Age values)
-app.get('/getdrdwnItems', async (req, res) => {
-  try {
-    const dropdownItems = await Employee.aggregate([
-      {
-        $group: {
-          _id: null,
-          Gender: { $addToSet: '$Gender' },
-          Age: { $addToSet: '$Age' },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          Gender: 1,
-          Age: 1,
-        },
-      },
-    ]);
-    res.send(dropdownItems[0]);
-  } catch (err) {
-    console.error('Error fetching dropdown items:', err);
-    res.status(500).send({ message: 'An error occurred while fetching dropdown items', error: err.message });
-  }
-});
+// app.get('/getdrdwnItems', async (req, res) => {
+//   try {
+//     const dropdownItems = await Employee.aggregate([
+//       {
+//         $group: {
+//           _id: null,
+//           Gender: { $addToSet: '$Gender' },
+//           Age: { $addToSet: '$Age' },
+//         },
+//       },
+//       {
+//         $project: {
+//           _id: 0,
+//           Gender: 1,
+//           Age: 1,
+//         },
+//       },
+//     ]);
+//     res.send(dropdownItems[0]);
+//   } catch (err) {
+//     console.error('Error fetching dropdown items:', err);
+//     res.status(500).send({ message: 'An error occurred while fetching dropdown items', error: err.message });
+//   }
+// });
 
 // Fetch filtered chart data
 app.get('/getChartData', validateAuthToken(), async (req, res) => {

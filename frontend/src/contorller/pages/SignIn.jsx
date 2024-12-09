@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../../App.css"
 import Axios  from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import config from './config.json';
 
 // import { useUserAuth } from '../context/userAuthContext';
@@ -35,13 +35,13 @@ const SignUpPage = () => {
         setemail("");
         setPassword("");
         navigate('/');
-        // toast.success("Sign Up Successfully Done, You Can Login Now!");
+        toast.success("Sign Up Successfully Done, You Can Login Now!");
       })
       .catch((error) => {
         console.log(error); // Log any errors to the console
-        if(error.response.data.message === "User Already Exists"){
-        // toast.error("User Already Exists!");
-        }
+        toast.error("User Already Exists!");
+        // if(error.response.data.message === "User Already Exists"){
+        // }
       });
     }
   };
@@ -52,6 +52,7 @@ const SignUpPage = () => {
         <div className='row'>
           <div className='col-lg-12 SignIn'>
             <div className='SignInBg'>
+              <ToastContainer />
               <h3>Sign In</h3>
               <input
                 className='form-control mt-4'
