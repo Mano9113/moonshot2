@@ -63,13 +63,10 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {/* Use Link for navigation */}
             <Link to="/SignIn">
               <button className="btn btn-e mt-3 me-3 btn-danger">Sign In</button>
             </Link>
-            {/* Remove the <a> tag if using Link */}
               <button className="btn btn-e mt-3 me-3 btn-primary" onClick={verifyUser}>Log In</button>
-            {/* <button className="btn btn-primary mt-3">Log In</button> */}
           </div>
         </div>
       </div>
