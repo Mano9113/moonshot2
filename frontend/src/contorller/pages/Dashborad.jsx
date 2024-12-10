@@ -6,7 +6,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { setCookie, getCookie } from "./utils/cookies";
 import "./style.css";
 import UrlLoginPage from "./UrlLogin";
-import bu from './config.json'
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const Dashboard = () => {
       return;
     }
 
-    Axios.get(`${bu.backendUrl}/verifyToken`, {
+    Axios.get("http://localhost:3001/verifyToken", {
       params: { token },
     })
       .then(() => {
@@ -78,7 +77,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const response = await Axios.get(`${bu.backendUrl}/getChartData`, {
+        const response = await Axios.get("http://localhost:3001/getChartData", {
           params: {
             gender: filters.gender,
             age: filters.age,
@@ -87,7 +86,12 @@ const Dashboard = () => {
             token: getCookie("token"),
           },
         });
-        setData(response.data);
+        const sortedData = response.data.sort(
+          (a, b) =>
+            new Date(a.Day.split("/").reverse().join("-")) -
+            new Date(b.Day.split("/").reverse().join("-"))
+        ); // Sort data by date
+        setData(sortedData);
       } catch (error) {
         console.error("Error fetching chart data:", error);
       }
