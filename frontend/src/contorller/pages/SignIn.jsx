@@ -5,43 +5,32 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import config from './config.json';
 
-// import { useUserAuth } from '../context/userAuthContext';
 const SignUpPage = () => {
-  const [email, setemail] = useState(''); // Use lowercase 'email'
-  const [password, setPassword] = useState(''); // Use lowercase 'password'
-  // const [email, setEmail] = useState("");
-  // const [error, setError] = useState("");
-  // const { signUp } = useUserAuth();
+  const [email, setemail] = useState('');
+  const [password, setPassword] = useState(''); 
+  
   let navigate = useNavigate();
 
   const createUserSign = async () => {
-    // try {
-    //   await signUp(email, password);
-    //   navigate("/");
-    // } catch (err) {
-    //   setError(err.message);
-    // }
+  
     if (email.trim() === "" || password.trim() === "") {
-      // toast.error("Please fill the fields");
     }else{
      const newSignInuser = {
       email: email,
       password: password,
     };
 
-    Axios.post(`${config.backendUrl}/createSign`, newSignInuser) // Use axios.post instead of Axios.post
+    Axios.post(`${config.backendUrl}/createSign`, newSignInuser) 
       .then((response) => {
-        console.log(response.data); // Log the response data to the console
+        console.log(response.data);
         setemail("");
         setPassword("");
         navigate('/');
         toast.success("Sign Up Successfully Done, You Can Login Now!");
       })
       .catch((error) => {
-        console.log(error); // Log any errors to the console
+        console.log(error); 
         toast.error("User Already Exists!");
-        // if(error.response.data.message === "User Already Exists"){
-        // }
       });
     }
   };
